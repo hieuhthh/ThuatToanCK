@@ -5,17 +5,19 @@ def kmp_search(a, b):
     n = len(a)
     m = len(b)
 
-    # Preprocess the pattern string to generate the partial match table
-    lps = [0] * m
+    # tiền xử lý
+    # xây dựng bảng tra cứu
+    # longest_pre_suffix[i] là vị trí tiếp theo của prefix giống với suffix kết thúc tại i (của chuỗi b)
+    longest_pre_suffix = [0] * m
     j = 0
     for i in range(1, m):
         while j > 0 and b[i] != b[j]:
-            j = lps[j - 1]
+            j = longest_pre_suffix[j - 1]
         if b[i] == b[j]:
             j += 1
-        lps[i] = j
+        longest_pre_suffix[i] = j
 
-    # Search for all occurrences of the pattern string in the text string
+    # Tìm mọi vị trí xuất hiện của b trong a
     i = 0
     j = 0
     positions = []
@@ -25,13 +27,13 @@ def kmp_search(a, b):
             j += 1
         if j == m:
             positions.append(i - j)
-            j = lps[j - 1]
+            j = longest_pre_suffix[j - 1]
         elif i < n and a[i] != b[j]:
             if j != 0:
-                j = lps[j - 1]
+                j = longest_pre_suffix[j - 1]
             else:
                 i += 1
-                
+
     return positions
 
 if __name__ == '__main__':
