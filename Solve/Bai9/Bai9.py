@@ -1,5 +1,8 @@
 def solve(s, p):
     # Trả về chuỗi s có thể được sinh ra từ chuỗi p
+    # n = len(s)
+    # Độ phức tạp thời gian: O(n) | chúng ta duyệt từng kí tự của chuỗi s
+    # Độ phức tạp không gian: O(n) nếu tính luôn bộ nhớ stack | độ sâu của đệ quy bằng với độ dài chuỗi s 
 
     # Nếu p rỗng, trả về True nếu s rỗng, ngược lại trả về False
     if not p:
