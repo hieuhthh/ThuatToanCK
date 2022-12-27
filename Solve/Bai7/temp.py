@@ -34,7 +34,6 @@ if __name__ == '__main__':
     with open('input.txt', 'r') as f:
         lines = f.readlines()
         lines = [[int(x) for x in line.strip().split(',')] for line in lines]
-        print(lines)
 
     arr = lines[0]
     print('arr =', arr)
