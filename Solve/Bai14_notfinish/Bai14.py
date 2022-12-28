@@ -1,5 +1,7 @@
 # Tính tổng diện tích của đa giác lồi n đỉnh
 def polygon_area(points):
+    # Độ phức tạp thời gian: O(n)
+    # Độ phức tạp không gian: O(1)
     n = len(points)
     area = 0
     for i in range(n):
