@@ -3,7 +3,7 @@ from copy import deepcopy
 
 def convex_hull(points):
     """
-    Độ phức tạp thời gian: O(nlogn)
+    Độ phức tạp thời gian: O(nlogn) | Để sắp xếp
     Độ phức tạp không gian: O(n)
     """
     # Sắp xếp các điểm theo tọa độ x tăng dần
