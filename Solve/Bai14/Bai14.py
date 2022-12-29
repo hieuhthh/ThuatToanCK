@@ -1,3 +1,4 @@
+
 # Tính tổng diện tích của đa giác lồi n đỉnh
 def polygon_area(points):
     # Độ phức tạp thời gian: O(n)
@@ -10,29 +11,29 @@ def polygon_area(points):
         area += x1 * y2 - x2 * y1
     return abs(area) / 2
 
-# Tìm đường chéo chia đa giác thành 2 phần có diện tích chênh lệch nhau ít nhất
+# Tìm 2 đỉnh mà đường chéo của nó chia đa giác thành 2 phần có diện tích chênh lệch ít nhất
 def min_area_difference(points):
     n = len(points)
-    min_diff = float('inf')
+    total_area = polygon_area(points) # diện tích đa giác tổng
+    diff_min = total_area
+    i_min = 0
+    j_min = 0
 
-    # Vét cạn với mọi 2 đỉnh tạo thành 1 đường chéo
+    # Độ phức tạp thời gian: O(n^2)
+    # Độ phức tạp không gian: O(1)
     for i in range(n):
-        for j in range(i + 1, n):
-            list_1 = points[i:j + 1]
-            area_1 = polygon_area(list_1)
-            list_2 = points[j:] + points[:i + 1]
-            area_2 = polygon_area(list_2)
-       
-            diff = abs(area_1 - area_2)
-            
-            if diff < min_diff:
-                min_diff = diff
-                i_save = i
-                j_save = j
+        area = 0
+        for j in range(i + 2, n):
+            # Mỗi lần chỉ cần cộng thêm diện tích tam giác vào phần mới
+            area += polygon_area([points[i], points[j - 1], points[j]])  # O(1) do đa giác cần tính này chỉ là tam giác
 
-    print('min_diff:', min_diff)
+            diff = abs(area - (total_area - area))
 
-    return i_save + 1, j_save + 1
+            if diff < diff_min:
+                i_min = i
+                j_min = j
+
+    return i_min + 1, j_min + 1
 
 if __name__ == '__main__':
     with open('input.txt', 'r') as f:

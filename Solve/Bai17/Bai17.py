@@ -5,6 +5,9 @@ def bfs(n):
     Tập hợp các bội của một số nguyên a là {0, a, 2a, 3a, ...}
     Ở đây ta tạm không xét trường hợp 0
     n nguyên dương -> n > 0
+    d = bằng số chữ số tối đa của m | m là bội của n, chứa toàn 0, 1
+    Độ phức tạp thời gian: O(2^d)
+    Độ phức tạp không gian: O(2^d)
     """
 
     if n == 1:
