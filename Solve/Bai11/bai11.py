@@ -1,46 +1,53 @@
-# #include <bits/stdc++.h>
-
-# using namespace std;
-
-# const int N = 1e3 + 10;
-
-# int k, n, m; 
-# int f[N][N];
-# pair<int, int> a[N]; 
-
-# void solve() {
-#     cin >> k >> n >> m; 
-#     for (int i = 1; i <= k; ++i) {
-#         cin >> a[i].first >> a[i].second; 
-#     }
-#     sort(a + 1, a + 1 + k, greater<pair<int, int>>()); 
-#     for (int i = 1; i <= k; ++i) { 
-#         f[i][0] = f[i - 1][0] + (i <= n ? a[i].first : 0); 
-#         for (int j = 1; j <= m; ++j) { 
-#             f[i][j] = max(f[i - 1][j] + (i - j <= n ? a[i].first : 0), f[i - 1][j - 1] + a[i].second); 
-#         }
-#     }
-#     cout << f[k][m] << endl; 
-# }
-
 def solve(arr, k, n, m):
-    ar.sort(key=lambda x: (-x[0],-x[1]))
+    # Sort giảm dần theo nhóm loại 1, nếu bằng nhau thì giảm dần theo nhóm loại 2
+    arr.sort(key=lambda x: (-x[0],-x[1]))
+
+    # Nếu chỉ phải phân vào nhóm loại 1
+    # -> Sort dãy lại theo nhóm 1 giảm dần rồi lấy n cụm đầu tiên phân vào nhóm 1
+
+    # Ta có 2 nhóm (loại 1, 2)
+    # Sort giảm dần theo nhóm loại 1, nếu bằng nhau thì giảm dần theo nhóm loại 2
+
+    # Tư tưởng chính là khi đã sort theo nhóm 1 giảm dần, 
+    # nếu ko chọn vào nhóm 2 thì luôn lấy nó vào nhóm 1 nếu còn chỗ trống
+
+    # Khởi tạo mảng f
+    # f[i, j] là tổng trọng số lớn nhất khi xét đến cụm i và chọn j cụm vào nhóm 2
+
+    # Giả sử đang xét đến i cụm đầu tiên trong dãy mà đã phân j cụm vào nhóm 2
+    # trong i - j cụm còn lại nếu i - j <= n thì ta sẽ chọn hết vào nhóm 1
+    # ngược lại thì mình chọn n cụm đầu tiên trong i - j cụm còn lại vào nhóm 1
+
+    # Công thức truy hồi
+    # TH1: Chọn cụm i vào nhóm 1: 
+    #   f(i, j) = f(i - 1, j) + a(i) nếu i - j <= n hoặc f(i, j) = f(i - 1, j) nếu i - j > n
+    # TH2: chọn cụm i vào nhóm 2:
+    #   f(i, j) = f(i - 1, j - 1) + b(i)
+
     f = [[0 for i in range(k + 1)] for j in range(k + 1)]
+        
     for i in range(1, k + 1):
-        f[i][0] = f[i - 1][0] + (ar[i - 1][0] if i <= n else 0)
+        f[i][0] = f[i - 1][0] + (arr[i - 1][0] if i <= n else 0)
         for j in range(1, m + 1):
-            f[i][j] = max(f[i - 1][j] + (ar[i - 1][0] if i - j <= n else 0), f[i - 1][j - 1] + ar[i - 1][1])
+            f[i][j] = max(f[i - 1][j] + (arr[i - 1][0] if i - j <= n else 0), f[i - 1][j - 1] + arr[i - 1][1])
+
     return f[k][m]
 
 if __name__ == "__main__":
     inp = open('input.txt', 'r')
     out = open('output.txt', 'w')
     k, n, m = map(int, inp.readline().split())
-    ar = []
+    
+    arr = []
+
     for i in range(k):
         first, second = map(int, inp.readline().split())
-        ar.append((first, second))
-    ans = solve(ar, k, n, m)
+        arr.append((first, second))
+
+    print('arr =', arr)
+
+    ans = solve(arr, k, n, m)
+    print('ans =', ans)
     
     inp.close()
     out.write(f"{ans}")
