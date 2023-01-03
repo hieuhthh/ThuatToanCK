@@ -33,7 +33,22 @@ def min_area_difference(points):
                 diff_min = diff
                 i_min = i
                 j_min = j
-
+    # Code hai con trỏ (chưa kiểm chứng)
+    # O(N) do hai biến i, j di chuyển độc lập nhau
+    # j = 0
+    # area = 0
+    # for i in range(n):
+    #     area -= polygon_area([points[i], points[i + 1], points[j]])
+    #     # Mỗi lần chỉ cần cộng thêm diện tích tam giác vào phần mới
+    #     while (area < (total_area - area)):
+    #         area += polygon_area([points[i], points[j - 1], points[j]])  # O(1) do đa giác cần tính này chỉ là tam giác
+    #         j = (j + 1) % n
+    #         diff = abs(area - (total_area - area))
+    #         if diff < diff_min:
+    #             diff_min = diff
+    #             i_min = i
+    #             j_min = j
+        
     return i_min + 1, j_min + 1
 
 if __name__ == '__main__':
@@ -48,5 +63,5 @@ if __name__ == '__main__':
     print('id_1 =', id_1)
     print('id_2 =', id_2)
 
-    with open('output.txt', 'w') as f:
-        f.write(f"{id_1} {id_2}")
+    # with open('output.txt', 'w') as f:
+    #     f.write(f"{id_1} {id_2}")
