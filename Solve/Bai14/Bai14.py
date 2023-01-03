@@ -30,6 +30,7 @@ def min_area_difference(points):
             diff = abs(area - (total_area - area))
 
             if diff < diff_min:
+                diff_min = diff
                 i_min = i
                 j_min = j
 

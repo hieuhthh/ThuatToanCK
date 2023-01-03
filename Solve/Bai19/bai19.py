@@ -51,7 +51,8 @@ def check(height, ar, cost):
         amount_left = i - left + 1
         amount_right = right - i + 1
         """
-            Dùng công thức toán tính tổng các phần tử nguyên liên tiếp từ a đến b là a + (a + 1) + ... + (b - 1) + b = (a + b)*(b - a + 1)//2
+            Dùng công thức toán tính tổng các phần tử nguyên liên tiếp từ a đến b 
+            là a + (a + 1) + ... + (b - 1) + b = (a + b)*(b - a + 1)//2
         """
         cost_placement = (amount_left * (2*height + (i - left))//2) + (amount_right * (2*height + (right - i)) // 2)
         #                                                                        trừ lại chi phí này do chúng ta lỡ tính trùng.
